@@ -137,10 +137,10 @@ public class Main {
 //        k.setNomorTelpon("0856");
 //        kdao.insert(k);
 
-        KaryawanDAO kdao = new KaryawanDAOImpl();
-        Karyawan k = kdao.getById(1);
-        k.setNama("Ryan");
-        kdao.update(k);
+//        KaryawanDAO kdao = new KaryawanDAOImpl();
+//        Karyawan k = kdao.getById(1);
+//        k.setNama("Ryan");
+//        kdao.update(k);
 
     }
 }
