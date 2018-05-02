@@ -8,7 +8,6 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +18,15 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Ryan
+ * @author Angga
  */
 @Entity
-public class DataKerusakan extends Tambahan implements Serializable {
+public class DataKerusakan implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    private DataKerusakanPK id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne(optional = false)
     @JoinColumn(name = "idKaryawan",referencedColumnName = "id")
     private Karyawan karyawan;
@@ -37,18 +37,15 @@ public class DataKerusakan extends Tambahan implements Serializable {
     private String deskripsi;
     @Column(name = "attachment",insertable = true,nullable = true)
     private String attachment;
-    @Column(name = "status_perbaikan",length = 20,updatable = true,nullable = false)
+    @Column(name = "statusPerbaikan",length = 20,updatable = true,nullable = false)
     private String statusPerbaikan;
-    @Column(name = "kode_kerusakan",length = 5,unique = true,insertable = true)
+    @Column(name = "kodeKerusakan",length = 5,unique = true,insertable = true)
     private String kodeKerusakan;
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name = "tanggal_rusak")
+    @Column(name = "tanggalRusak")
     private Date tanggalRusak;
-    @Column(name = "fasilitas_rusak",length = 100,insertable = true,nullable = false)
+    @Column(name = "fasilitasRusak",length = 100,insertable = true,nullable = false)
     private String fasilitasRusak;
-    
-    
-
 
     public DataKerusakan(){
         statusPerbaikan = "Belum Diperbaiki";
@@ -60,10 +57,18 @@ public class DataKerusakan extends Tambahan implements Serializable {
         statusPerbaikan = "Belum Diperbaiki";
     }
     
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -74,7 +79,7 @@ public class DataKerusakan extends Tambahan implements Serializable {
             return false;
         }
         DataKerusakan other = (DataKerusakan) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -82,21 +87,7 @@ public class DataKerusakan extends Tambahan implements Serializable {
 
     @Override
     public String toString() {
-        return "model.DataKerusakan[ id=" + getId() + " ]";
-    }
-
-    /**
-     * @return the id
-     */
-    public DataKerusakanPK getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(DataKerusakanPK id) {
-        this.id = id;
+        return "model.DataKerusakan1[ id=" + id + " ]";
     }
 
     /**
